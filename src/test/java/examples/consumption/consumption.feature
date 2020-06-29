@@ -70,9 +70,14 @@ Feature: Consume the first eligible message from a kafka topic
     When call consume ({ topic: "json.topic", filter: filter })
     Then match message contains { text: "Hello to everyone" }
 
+
+
   # TODO deeply nested checks with wrong path fail with karate.match as well
   #      probably cannot use jsonpath at all in the js DSL?
   #      maybe if there was a karate.match(object, jsonPath, expected) ?
+  # hypothesis is that there can be many different message types in a topic
+  # e.g. think of event sourcing, and not all of them have the same structure
+  # but in this case we can short circuit to avoid exceptions
   Scenario: Deeply nested checks throw exceptions instead of not matching, even with karate.match
     * def consume = read("classpath:consume.feature")
     * def kafka_message_format = "JSON"
@@ -84,6 +89,26 @@ Feature: Consume the first eligible message from a kafka topic
     """
     When call consume ({ topic: "json.topic", filter: filter })
     Then match message contains { text: "Hello to everyone" }
+
+
+  Scenario: Deeply nested json path seems to work great in stepactions, reports not match null instead of exception
+    * def message =
+    """
+    {
+        "correlationId": "101",
+        "text": "Hello to everyone",
+        "data": {
+            "deeply": {
+                "nested": "no",
+                "id": "1010"
+            }
+        }
+    }
+    """
+    Then match message contains { text: "Hello to everyone" }
+    # Getting  path: $.nonExistent.deeply.nested, actual: null, expected: 'no', reason: actual json-path does not exist
+    Then match message.nonExistent.deeply.nested == "no"
+
 
   Scenario: If records are string and no conversion happens, we have basic string based filters only
     * def consume = read("classpath:consume.feature")
