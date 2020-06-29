@@ -12,8 +12,26 @@ public class RecordHolder {
     static {
         // json.topic records
         List<String> jsonTopic = new LinkedList<>();
-        jsonTopic.add("{\"correlationId\":\"100\",\"text\":\"Hello world\"}\n");
-        jsonTopic.add("{\"correlationId\":\"101\",\"text\":\"Hello to everyone\"}\n");
+        jsonTopic.add("{\n" +
+                "    \"correlationId\": \"100\",\n" +
+                "    \"text\": \"Hello World\",\n" +
+                "    \"data\": {\n" +
+                "        \"deeply\": {\n" +
+                "            \"nested\": \"yes\",\n" +
+                "            \"id\": \"1000\"\n" +
+                "        }\n" +
+                "    }\n" +
+                "}");
+        jsonTopic.add("{\n" +
+                "    \"correlationId\": \"101\",\n" +
+                "    \"text\": \"Hello to everyone\",\n" +
+                "    \"data\": {\n" +
+                "        \"deeply\": {\n" +
+                "            \"nested\": \"no\",\n" +
+                "            \"id\": \"1010\"\n" +
+                "        }\n" +
+                "    }\n" +
+                "}");
 
         records.put("json.topic", jsonTopic);
     }

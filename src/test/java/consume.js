@@ -1,12 +1,11 @@
 function(topic, filter, format) {
   var KafkaLib = Java.type('RecordHolder')
-  karate.log("wtf 1")
+
   if (!format) {
     format = "STRING";
   }
 
   karate.log("Getting records for " + topic + " with format: " + format)
-
 
   // TODO would prefer to not pass a format and have Karate dynamically
   //      understand the type and convert to the relevant native type
