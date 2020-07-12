@@ -41,6 +41,7 @@ public class RecordHolder {
     }
 
     static public List<Map<String, Object>> getRecordsAsJson(String topic) throws JsonProcessingException {
+        System.out.println("Converting record to json in java layer");
         var record = getRecords(topic).get(1);
         // TODO It would seem preferable to keep the java layer as thin as possible
         //      and parse json from string in Karate, as it can already do that in
