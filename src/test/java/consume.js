@@ -2,7 +2,7 @@ function(topic, filter, format) {
   var KafkaLib = Java.type('RecordHolder')
 
   if (!format) {
-    format = "STRING";
+    format = "automatic";
   }
 
   karate.log("Getting records for " + topic + " with format: " + format)
@@ -11,14 +11,10 @@ function(topic, filter, format) {
   //      understand the type and convert to the relevant native type
   var records
 
-  if (format == "STRING") {
-    records = KafkaLib.getRecords(topic)
-  } else if (format == "JSON") {
+  if (format == "json") {
     records = KafkaLib.getRecordsAsJson(topic)
-  //} else if (format == "XML") {
-    // ???
   } else {
-    throw "Unexpected format: " + format
+      records = KafkaLib.getRecords(topic)
   }
 
   karate.log("Got " + records.length + " records")
@@ -26,6 +22,12 @@ function(topic, filter, format) {
 
   for (record_id in records) {
     var record = records[record_id]
+     if (format == "automatic") {
+        // Convert string to karate native type
+        var native = karate.fromString(record)
+        karate.log("Native object:", native)
+        record = native.value
+    }
     karate.log("Evaluating: " + record)
     // TODO find a way to convert to native data type
     if (filter(record)) {
