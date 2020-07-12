@@ -20,7 +20,7 @@ Feature: Consume the first eligible message from a kafka topic
   # This works but would seem better to do the string to json conversion in karate
   Scenario: Filters work if we parse json in the java layer, simple equality checks
     * def consume = read("classpath:consume.feature")
-    * def kafka_message_format = "json"
+    * def kafka_message_format = "java_json"
     Given def filter =
     """
     function(message) {
@@ -33,7 +33,7 @@ Feature: Consume the first eligible message from a kafka topic
 
   Scenario: Filters work if we parse json in the java layer, nested checks
     * def consume = read("classpath:consume.feature")
-    * def kafka_message_format = "json"
+    * def kafka_message_format = "java_json"
     Given def filter =
     """
     function(message) {
@@ -47,7 +47,7 @@ Feature: Consume the first eligible message from a kafka topic
   # TODO cannot use match contains
   Scenario: Match contains does not work with karate.match
     * def consume = read("classpath:consume.feature")
-    * def kafka_message_format = "json"
+    * def kafka_message_format = "java_json"
     Given def filter =
     """
     function(message) {
@@ -60,7 +60,7 @@ Feature: Consume the first eligible message from a kafka topic
   # TODO deeply nested checks with wrong path fail, is this expected?
   Scenario: Deeply nested checks throw exceptions instead of not matching
     * def consume = read("classpath:consume.feature")
-    * def kafka_message_format = "json"
+    * def kafka_message_format = "java_json"
     Given def filter =
     """
     function(message) {
@@ -80,7 +80,7 @@ Feature: Consume the first eligible message from a kafka topic
   # but in this case we can short circuit to avoid exceptions
   Scenario: Deeply nested checks throw exceptions instead of not matching, even with karate.match
     * def consume = read("classpath:consume.feature")
-    * def kafka_message_format = "json"
+    * def kafka_message_format = "java_json"
     Given def filter =
     """
     function(message) {

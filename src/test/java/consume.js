@@ -11,7 +11,7 @@ function(topic, filter, format) {
   //      understand the type and convert to the relevant native type
   var records
 
-  if (format == "json") {
+  if (format == "java_json") {
     records = KafkaLib.getRecordsAsJson(topic)
   } else {
       records = KafkaLib.getRecords(topic)
@@ -28,6 +28,7 @@ function(topic, filter, format) {
         karate.log("Native object:", native)
         record = native.value
     }
+
     karate.log("Evaluating: " + record)
     // TODO find a way to convert to native data type
     if (filter(record)) {
