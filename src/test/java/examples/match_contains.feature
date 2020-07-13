@@ -15,7 +15,7 @@ Feature: match_contains
           }
           """
       Then match message contains { text: "Hello to everyone" }
-      Then match message contains { data: { deeply: { nested: "no" } } } }
+      Then match message contains deep { data: { deeply: { nested: "no" } } } }
 
 
   Scenario: Match contains for sublist works even if simple list elements are reversed
@@ -26,7 +26,7 @@ Feature: match_contains
           products: [100,101]
       }
       """
-    Then match message contains { order_id: 5, products: [101, 100] }
+    Then match message contains deep { order_id: 5, products: [101, 100] }
 
 
   Scenario: Match contains for sublist works even if complex list elements are reversed
@@ -40,7 +40,7 @@ Feature: match_contains
           ]
       }
       """
-    Then match message contains
+    Then match message contains deep
       """
       {
           order_id: 5,
