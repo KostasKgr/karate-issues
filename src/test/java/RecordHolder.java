@@ -22,6 +22,10 @@ public class RecordHolder {
                 "        }\n" +
                 "    }\n" +
                 "}");
+        jsonTopic.add("[\n" +
+                "    {\"order_id\": 5, \"name\": \"bicycle\"},\n" +
+                "    {\"order_id\": 6, \"name\": \"car\"}\n" +
+                "]");
         jsonTopic.add("{\n" +
                 "    \"correlationId\": \"101\",\n" +
                 "    \"text\": \"Hello to everyone\",\n" +

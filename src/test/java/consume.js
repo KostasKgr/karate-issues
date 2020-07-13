@@ -25,11 +25,13 @@ function(topic, filter, format) {
      if (format == "automatic") {
         // Convert string to karate native type
         var native = karate.fromString(record)
+        karate.log("Original record string: ", record)
         karate.log("Native object:", native)
-        record = native.value
+        record = native.asMap
+        karate.log("Record asMap: ", record )
     }
 
-    karate.log("Evaluating: " + record)
+    karate.log("Evaluating: ", record)
     // TODO find a way to convert to native data type
     if (filter(record)) {
       karate.log("Record matched: " + record)
