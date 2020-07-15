@@ -1,5 +1,10 @@
-Feature: Example
+Feature: Example feature
 
-    Scenario: Example
-      Given def message = { hello: "world" }
-      Then match message == { hello: "world" }
+  Scenario Outline: Example scenario
+    Given print karate.info.scenarioName
+    Given print karate.info.scenarioName
+
+    Examples:
+      | mpla |
+      | 1    |
+      | 2    |
