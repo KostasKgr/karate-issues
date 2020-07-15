@@ -1,8 +1,8 @@
 Feature: Example feature
 
-  Scenario Outline: Example scenario
+  Scenario Outline: Example scenario <mpla>
     Given print karate.info.scenarioName
-    Given print karate.info.scenarioName
+    Given print "Hello <mpla>"
 
     Examples:
       | mpla |
