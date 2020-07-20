@@ -12,13 +12,38 @@
         <encoder>
             <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
         </encoder>
-    </appender>    
-   
+    </appender>
+
+    <!--
+        https://mkyong.com/logging/logback-different-log-file-for-each-thread/
+        http://logback.qos.ch/manual/appenders.html#SiftingAppender
+    -->
+    <appender name="FILE-THREAD" class="ch.qos.logback.classic.sift.SiftingAppender">
+
+        <!-- This is MDC value -->
+        <!-- We will assign a value to 'logFileName' via Java code -->
+        <discriminator>
+            <key>logFileName</key>
+            <defaultValue>mdcUndefined</defaultValue>
+        </discriminator>
+
+        <sift>
+            <appender name="FILE-${logFileName}" class="ch.qos.logback.core.FileAppender">
+                <file>target/${logFileName}.log</file>
+                <immediateFlush>true</immediateFlush>
+                <layout class="ch.qos.logback.classic.PatternLayout">
+                    <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+                </layout>
+            </appender>
+        </sift>
+    </appender>
+
     <logger name="com.intuit" level="DEBUG"/>
    
     <root level="info">
         <appender-ref ref="STDOUT" />
         <appender-ref ref="FILE" />
+        <appender-ref ref="FILE-THREAD" />
     </root>
   
 </configuration>
