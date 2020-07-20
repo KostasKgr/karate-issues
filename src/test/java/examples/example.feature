@@ -1,5 +1,5 @@
 Feature: Example
 
     Scenario: Example
-      Given def message = { hello: "world" }
-      Then match message == { hello: "world" }
+      Given def amazing = Java.type('examples.Amazing')
+      Then amazing.doWork()
