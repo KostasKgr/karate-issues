@@ -14,7 +14,7 @@ Feature:
         </root>
     """
 
-    # if this definition is in place removed, then
+    # if this definition is in place, then
     #  * If the feature data_use feature is run from intellij, it hangs forever
     #  * If run throught he ExampplesRunner then the following is reported:
     #       java.lang.IllegalAccessError: class com.sun.org.apache.xerces.internal.dom.DocumentImplAccAccess tried to access protected field com.sun.org.apache.xerces.internal.dom.ParentNode.firstChild (com.sun.org.apache.xerces.internal.dom.DocumentImplAccAccess is in unnamed module of loader net.minidev.asm.DynamicClassLoader @389adf1d; com.sun.org.apache.xerces.internal.dom.ParentNode is in module java.xml of loader 'bootstrap')
